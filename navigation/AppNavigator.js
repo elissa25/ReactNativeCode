@@ -1,16 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-
-import { LoginNavigator  } from './ScreenNavigator';
+import { useSelector } from 'react-redux';
+import { LoginNavigator ,DashboardNavigator } from './ScreenNavigator';
 
 
  const AppNavigator = (props) => {
 
-    
+    const {token}=useSelector(state=>state.login);
 
     return(  
         <NavigationContainer>
-        <LoginNavigator />
+        {token ? <DashboardNavigator /> : <LoginNavigator />}
       </NavigationContainer>
         );
 };
