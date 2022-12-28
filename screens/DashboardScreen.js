@@ -13,6 +13,7 @@ import {
   SafeAreaView,
   Linking,
 } from 'react-native';
+import Article from '../components/article/Article';
 import {useDispatch, useSelector} from 'react-redux';
 import Ant from 'react-native-vector-icons/AntDesign';
 import {getAllArticles} from '../store/actions/articles-actions';
@@ -39,32 +40,11 @@ const DashboardScreen = props => {
 
   const renderItem = ({item}) => {
     return (
-      <SafeAreaView style={{flex: 1}}>
-        <Pressable
-          style={styles.container}
-          onPress={() => Linking.openURL(`${item.web_url}`)}
-          android_ripple={{
-            color: '#D2ABDB',
-          }}>
-          <View style={{padding: 20, borderRadius: 40}}>
-            {/*    title */}
-            <Text style={styles.title}>{item.headline.main}</Text>
-
-            {/*    description */}
-            <Text style={styles.description} numberOfLines={3}>
-              {item.abstract}
-            </Text>
-
-            <View style={styles.data}></View>
-            {/*     source */}
-            <View style={{marginTop: 10}}>
-              <Text>
-                source: <Text style={styles.source}>{item.source}</Text>
-              </Text>
-            </View>
-          </View>
-        </Pressable>
-      </SafeAreaView>
+      <Article url={item.web_url}
+      title={item.headline.main}
+      description={item.abstract}
+      source={item.source}
+      />
     );
   };
   const renderLoader = () => {
