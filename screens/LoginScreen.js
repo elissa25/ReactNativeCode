@@ -13,7 +13,8 @@ import {
   ActivityIndicator,
   Button,
 } from 'react-native';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {loginUser} from '../store/actions/loginActions';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ant from 'react-native-vector-icons/AntDesign';
@@ -39,17 +40,20 @@ const loginValidationSchema = yup.object({
 });
 
 const LoginScreen = props => {
- 
+  const dispatch = useDispatch();
+  const {status, error, loading} = useSelector(state => state.login);
   const [showPassword, setShowPassword] = useState(false);
 
-  
+  const submitHandler = values => {
+    dispatch(loginUser(values));
+  };
   return (
     <Formik
       initialValues={{username: '', password: ''}}
       validateOnMount={true}
       validationSchema={loginValidationSchema}
       onSubmit={values => {
-       // submitHandler(values);
+        submitHandler(values);
         //actions.resetForm();
        
       }}>
@@ -125,15 +129,19 @@ const LoginScreen = props => {
               <View style={styles.bottomContainer}>
                 <TouchableOpacity
                   onPress={handleSubmit}
-                 
+                  disabled={!isValid && loading}
                   style={[
                     styles.button,
-                    {backgroundColor: '#A629C2'},
+                    {backgroundColor: isValid ? '#A629C2': '#CACFD2'},
                   ]}>
                   <Text style={styles.buttonText}> Login</Text>
                 </TouchableOpacity>
               </View>
-            
+              {loading && <ActivityIndicator />}
+              {/* ////////////////////////////////// */}
+              {status === 'failed' && (
+                <Text style={styles.errors}>{error}</Text>
+              )}
             </View>
           </View>
         </ScrollView>
