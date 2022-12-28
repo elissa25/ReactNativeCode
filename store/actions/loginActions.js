@@ -1,10 +1,10 @@
 import { loginActions } from "../slices/login-slice";
-
+import config from '../../config';
 export const loginUser = user => {
   return async dispatch => {
     try {
       dispatch(loginActions.loginRequest());
-      const response = await fetch('http://34.245.213.76:3000/auth/signin', {
+      const response = await fetch(config.LOGIN_URL, {
         method: 'POST',
         body: JSON.stringify({
           username: user.username,

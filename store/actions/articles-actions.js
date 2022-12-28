@@ -14,7 +14,7 @@ export const getAllArticles = (page) => {
         },
       );
       if (!response.ok) {
-        throw new Error('Errorrrr!');
+        throw new Error('Failed to fetch !');
       }
       const data = await response.json();
       console.log(page);

@@ -2,23 +2,18 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
-  Text,
-  Label,
   FlatList,
   ActivityIndicator,
-  Pressable,
-  Button,
-  StatusBar,
-  TextInput,
   SafeAreaView,
-  Linking,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import Ant from 'react-native-vector-icons/AntDesign';
+
 import {getAllArticles} from '../store/actions/articles-actions';
 import {articlesActions} from '../store/slices/articles-slice';
+
 import Article from '../components/article/Article';
 import SearchInput from '../components/article/SearchInput';
+import Error from '../components/ui/Error';
 
 const DashboardScreen = props => {
   const dispatch = useDispatch();
@@ -38,7 +33,6 @@ const DashboardScreen = props => {
     dispatch(getAllArticles(page));
   }, [dispatch, page]);
 
-  // {searchedArticles.length===0 && <Text>Not founddddddd</Text>}
 
   const renderItem = ({item}) => {
     return (
@@ -60,7 +54,6 @@ const DashboardScreen = props => {
 
   const loadMoreItem = () => {
     setPage(page + 1);
-    //dispatch(getAllArticles(page));
   };
   const onChangeText=(value) =>{
     dispatch(articlesActions.searchArticle(value))
@@ -71,13 +64,15 @@ const DashboardScreen = props => {
         <SearchInput onChangeText={onChangeText}
             />
         
-        {error && articleStatus === 'failed' && <Text style={styles.error}>{error}</Text>}
+        {error && articleStatus === 'failed' && <Error error={error}/> }
+
         {articlesToDispaly.length === 0 && searchField && (
-          <Text style={styles.error}>no search articles founddd</Text>
+          <Error error="no searched articles were found"/> 
         )}
         {articlesToDispaly.length === 0 &&
           articleStatus === 'success' &&
-          !searchField && <Text style={styles.error}>no articles founddd</Text>}
+          !searchField && <Error error="no articles founded"/> }
+
         <FlatList
           style={{marginTop: 20}}
           data={articlesToDispaly}
@@ -117,42 +112,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     
   },
-  image: {
-    height: 200,
-    width: '100%',
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-  },
-  title: {
-    marginTop: 10,
-    color:'#A629C2',
-    fontWeight: 'bold',
-    fontSize: 18,
-  },
-  description: {
-    fontSize: 16,
-    fontWeight: '400',
-    marginTop: 10,
-  },
-  data: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  heading: {},
-  author: {
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
-  date: {
-    fontWeight: 'bold',
-    color: '#e63946',
-    fontSize: 15,
-  },
-  source: {
-    color: '#8C49A3',
-   
-  },
   formControl: {
     flex: 1,
     flexDirection: 'row',
@@ -161,35 +120,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     width: '100%',
   },
-  viewSearch: {
-    margin: 10,
-  },
-  input: {
-    backgroundColor:'white',
-    paddingHorizontal: 2,
-    paddingVertical: 5,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    borderRadius: 10,
-    color: '#000',
-    borderWidth: 1,
-    width: '75%',
-    marginLeft: 15,
-    alignSelf: 'flex-start',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  item: {
-    marginRight: 20,
-    alignSelf: 'flex-end',
-  },
-  error:{
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'red',
-    fontWeight: 'bold',
-    fontSize: 15,
-  }
+
 });
 
 export default DashboardScreen;

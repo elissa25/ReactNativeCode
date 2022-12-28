@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-
-} from 'react-native';
+import {View, StyleSheet, Text, TextInput} from 'react-native';
 
 function Input(props) {
   return (
@@ -16,14 +10,14 @@ function Input(props) {
   );
 }
 const styles = StyleSheet.create({
-    buttomView: {
-        flex: 1,
-        backgroundColor: '#FFFFFF',
-        bottom: 50,
-        borderTopStartRadius: 60,
-        borderTopEndRadius: 60,
-      },
-    label: {
+  buttomView: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    bottom: 50,
+    borderTopStartRadius: 60,
+    borderTopEndRadius: 60,
+  },
+  label: {
     marginVertical: 2,
     marginLeft: 15,
     fontWeight: 'bold',
