@@ -10,6 +10,7 @@ const articleSlice = createSlice({
     loading: false,
     articleStatus: "",
     error: null,
+    empty:[]
   },
   reducers: {
     articlesRequest(state) {
@@ -19,6 +20,7 @@ const articleSlice = createSlice({
       state.loading = false;
       state.articles = [...state.articles, ...action.payload];
       state.articleStatus = "success";
+      state.empty=action.payload;
     },
     failedArticles(state, action) {
       state.articleStatus = "failed";

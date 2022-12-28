@@ -13,11 +13,12 @@ import {
   SafeAreaView,
   Linking,
 } from 'react-native';
-import Article from '../components/article/Article';
 import {useDispatch, useSelector} from 'react-redux';
 import Ant from 'react-native-vector-icons/AntDesign';
 import {getAllArticles} from '../store/actions/articles-actions';
 import {articlesActions} from '../store/slices/articles-slice';
+import Article from '../components/article/Article';
+import SearchInput from '../components/article/SearchInput';
 
 const DashboardScreen = props => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const DashboardScreen = props => {
     searchField,
     error,
     loading,
+    empty
   } = useSelector(state => state.articles);
 
   const articlesToDispaly = searchField ? searchedArticles : articles;
@@ -40,10 +42,11 @@ const DashboardScreen = props => {
 
   const renderItem = ({item}) => {
     return (
-      <Article url={item.web_url}
-      title={item.headline.main}
-      description={item.abstract}
-      source={item.source}
+      <Article
+        url={item.web_url}
+        title={item.headline.main}
+        description={item.abstract}
+        source={item.source}
       />
     );
   };
@@ -57,43 +60,33 @@ const DashboardScreen = props => {
 
   const loadMoreItem = () => {
     setPage(page + 1);
+    //dispatch(getAllArticles(page));
   };
-
+  const onChangeText=(value) =>{
+    dispatch(articlesActions.searchArticle(value))
+  }
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1}}>
-        <View style={styles.viewSearch}>
-          {/* <Ant name="search1" size={25} style={styles.item} /> */}
-          <TextInput
-            placeholder="Search..."
-            id="search"
-            style={styles.input}
-            onChangeText={value =>
-              dispatch(articlesActions.searchArticle(value))
-            }
-          />
-        </View>
-        {error && articleStatus === 'failed' && (
-          <Text style={styles.error}>{error}</Text>
-        )}
+        <SearchInput onChangeText={onChangeText}
+            />
+        
+        {error && articleStatus === 'failed' && <Text style={styles.error}>{error}</Text>}
         {articlesToDispaly.length === 0 && searchField && (
           <Text style={styles.error}>no search articles founddd</Text>
         )}
         {articlesToDispaly.length === 0 &&
           articleStatus === 'success' &&
           !searchField && <Text style={styles.error}>no articles founddd</Text>}
-
         <FlatList
           style={{marginTop: 20}}
           data={articlesToDispaly}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
-        
-          onEndReached={loadMoreItem}
+          onEndReached={ (empty.length===0 || searchField) ? null :()=>{ setPage(page + 1);} }
           onEndReachedThreshold={0}
-          onRefresh={() => dispatch(getAllArticles(page))}
+          onRefresh={error && (() => dispatch(getAllArticles(page)))}
           refreshing={loading}
-        
         />
       </View>
     </SafeAreaView>
@@ -122,6 +115,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor: '#fff',
     marginTop: 20,
+    
   },
   image: {
     height: 200,
@@ -131,7 +125,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 10,
-    color: '#A629C2',
+    color:'#A629C2',
     fontWeight: 'bold',
     fontSize: 18,
   },
@@ -157,6 +151,7 @@ const styles = StyleSheet.create({
   },
   source: {
     color: '#8C49A3',
+   
   },
   formControl: {
     flex: 1,
@@ -170,7 +165,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor:'white',
     paddingHorizontal: 2,
     paddingVertical: 5,
     borderBottomColor: '#ccc',
@@ -188,13 +183,13 @@ const styles = StyleSheet.create({
     marginRight: 20,
     alignSelf: 'flex-end',
   },
-  error: {
+  error:{
     alignItems: 'center',
     justifyContent: 'center',
     color: 'red',
     fontWeight: 'bold',
     fontSize: 15,
-  },
+  }
 });
 
 export default DashboardScreen;

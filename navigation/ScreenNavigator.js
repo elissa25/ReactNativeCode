@@ -9,6 +9,7 @@ import {Button, TouchableOpacity, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginActions} from '../store/slices/login-slice';
 import {articlesActions} from '../store/slices/articles-slice';
+import Colors from '../constants/Color';
 
 const LoginStackNavigator = createNativeStackNavigator();
 
@@ -38,11 +39,11 @@ export const DashboardNavigator = props => {
           headerTitleStyle: {
             fontWeight: 'italic',
           },
-          headerStyle: {backgroundColor: '#A629C2', color: 'white'},
+          headerStyle: {backgroundColor: Colors.mauve, color: 'white'},
           headerRight: () => (
             <TouchableOpacity
               style={{
-                backgroundColor: '#D2ABDB',
+                backgroundColor: Colors.lightMauve,
                 shadowOffset: {width: 1, height: 10},
                 shadowOpacity: 0.4,
                 shadowRadius: 3,
@@ -55,7 +56,7 @@ export const DashboardNavigator = props => {
                 marginHorizontal: 20,
                 marginVertical: 10,
                 borderWidth: 1,
-                borderColor: '#D2ABDB',
+                borderColor: Colors.lightMauve,
                 width: 80,
               }}
               onPress={() => {
@@ -66,7 +67,7 @@ export const DashboardNavigator = props => {
                 style={{
                   fontSize: 20,
                   fontWeight: '600',
-                  color: '#FFFFFF',
+                  color: Colors.mauve,
                   letterSpacing: 0.5,
                 }}>
                 Logout

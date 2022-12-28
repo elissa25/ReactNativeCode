@@ -13,7 +13,7 @@ import {
     SafeAreaView,
     Linking,
   } from 'react-native';
-
+import Colors from '../../constants/Color';
 function Article(props) {
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -21,7 +21,7 @@ function Article(props) {
       style={styles.container}
       onPress={() => Linking.openURL(`${props.url}`)}
       android_ripple={{
-        color: '#D2ABDB',
+        color: Colors.lightMauve,
       }}>
       <View style={{padding: 20, borderRadius: 40}}>
         {/*    title */}
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     },
     title: {
       marginTop: 10,
-      color: '#A629C2',
+      color: Colors.mauve,
       fontWeight: 'bold',
       fontSize: 18,
     },
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
       fontSize: 15,
     },
     source: {
-      color: '#8C49A3',
+      color: Colors.darkMauve,
     },
     formControl: {
       flex: 1,

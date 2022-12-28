@@ -17,6 +17,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../store/actions/loginActions';
 import Input from '../components/ui/Input';
 import Error from '../components/ui/Error';
+import Colors from '../constants/Color';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ant from 'react-native-vector-icons/AntDesign';
@@ -129,7 +130,7 @@ const LoginScreen = props => {
                   disabled={!isValid && loading}
                   style={[
                     styles.button,
-                    {backgroundColor: isValid ? '#A629C2': '#CACFD2'},
+                    {backgroundColor: isValid ? Colors.mauve: '#CACFD2'},
                   ]}>
                   <Text style={styles.buttonText}> Login</Text>
                 </TouchableOpacity>
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 60,
   },
   welcometitle: {
-    color: '#A629C2',
+    color: Colors.mauve,
     fontSize: 30,
   },
   formControl: {
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
   item:{
     marginRight: 20,
     alignSelf: 'flex-end',
-    color: '#A629C2',
+    color: Colors.mauve,
   },
   loginBtn: {
     alignSelf: 'center',
