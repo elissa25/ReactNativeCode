@@ -16,6 +16,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../store/actions/loginActions';
 import Input from '../components/ui/Input';
+import Error from '../components/ui/Error';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ant from 'react-native-vector-icons/AntDesign';
@@ -98,7 +99,7 @@ const LoginScreen = props => {
               </View>
 
               {errors.username && touched.username && (
-                <Text style={styles.errors}>{errors.username}</Text>
+               <Error error={errors.username}/> 
               )}
 
               <View style={styles.formControl}>
@@ -119,7 +120,7 @@ const LoginScreen = props => {
                 />
               </View>
               {errors.password && touched.password && (
-                <Text style={styles.errors}>{errors.password}</Text>
+                <Error error={errors.password}/>
               )}
              
               <View style={styles.bottomContainer}>
@@ -136,7 +137,7 @@ const LoginScreen = props => {
               {loading && <ActivityIndicator />}
               {/* ////////////////////////////////// */}
               {status === 'failed' && (
-                <Text style={styles.errors}>{error}</Text>
+                <Error error={error}/>
               )}
             </View>
           </View>
@@ -186,20 +187,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: '100%',
   },
-  label: {
-    marginVertical: 2,
-    marginLeft: 15,
-    fontWeight: 'bold',
-  },
-  input: {
-    paddingHorizontal: 2,
-    paddingVertical: 5,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    width: '75%',
-    marginLeft: 15,
-    alignSelf: 'flex-start',
-  },
   item:{
     marginRight: 20,
     alignSelf: 'flex-end',
@@ -215,7 +202,6 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 1, height: 10},
     shadowOpacity: 0.4,
     shadowRadius: 3,
-    // shadowColor:'#00acee',
     elevation: 15,
     height: 55,
     alignItems: 'center',
@@ -236,12 +222,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding:20
   },
-  errors: {
-    fontSize: 14,
-    color: 'red',
-    fontWeight: 'bold',
-    marginTop: 5,
-  },
+  
   
 });
 

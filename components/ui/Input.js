@@ -3,15 +3,8 @@ import {
   View,
   StyleSheet,
   Text,
-  Label,
   TextInput,
-  KeyboardAvoidingView,
-  ScrollView,
-  ImageBackground,
-  Dimensions,
-  TouchableOpacity,
-  ActivityIndicator,
-  Button,
+
 } from 'react-native';
 
 function Input(props) {
