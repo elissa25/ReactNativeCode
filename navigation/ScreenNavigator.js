@@ -4,9 +4,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import {screenOptions as loginOptions} from '../screens/LoginScreen';
-
+import {screenOptions as dashboardOptions} from '../screens/DashboardScreen';
 import {Button, TouchableOpacity, Text} from 'react-native';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {loginActions} from '../store/slices/login-slice';
+import {articlesActions} from '../store/slices/articles-slice';
 
 const LoginStackNavigator = createNativeStackNavigator();
 
@@ -25,7 +27,7 @@ export const LoginNavigator = props => {
 const DashboardStackNavigator = createNativeStackNavigator();
 
 export const DashboardNavigator = props => {
-
+  const dispatch = useDispatch();
   return (
     <DashboardStackNavigator.Navigator>
       <DashboardStackNavigator.Screen
@@ -56,7 +58,10 @@ export const DashboardNavigator = props => {
                 borderColor: '#D2ABDB',
                 width: 80,
               }}
-             >
+              onPress={() => {
+                dispatch(loginActions.Logout());
+                dispatch(articlesActions.Reset());
+              }}>
               <Text
                 style={{
                   fontSize: 20,
