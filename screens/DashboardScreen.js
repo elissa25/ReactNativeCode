@@ -108,10 +108,12 @@ const DashboardScreen = props => {
           data={articlesToDispaly}
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
+        
           onEndReached={loadMoreItem}
           onEndReachedThreshold={0}
           onRefresh={() => dispatch(getAllArticles(page))}
           refreshing={loading}
+        
         />
       </View>
     </SafeAreaView>

@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../store/actions/loginActions';
+import Input from '../components/ui/Input';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Ant from 'react-native-vector-icons/AntDesign';
@@ -83,16 +84,12 @@ const LoginScreen = props => {
               
               <View style={styles.formControl}>
               {/* <Eye name="user" size={25} /> */}
-                <Text style={styles.label}>Username:</Text>
-
-                <TextInput
-                  style={styles.input}
-                  id="username"
-                  required
-                  onChangeText={handleChange('username')}
-                  onBlur={handleBlur('username')}
-                  value={values.username}
-                />
+              <Input 
+              label="Username"
+              id="username"
+              onChangeText={handleChange('username')}
+              onBlur={handleBlur('username')}
+              value={values.username}/>
                 {!errors.username ? (
                   <Ant name="check" size={15} style={styles.item} />
                 ) : (
@@ -106,16 +103,15 @@ const LoginScreen = props => {
 
               <View style={styles.formControl}>
                 {/* <Icon name="key" size={25} /> */}
-                <Text style={styles.label}>Password:</Text>
-                <TextInput
-                  style={styles.input}
-                  id="password"
-                  label="Password"
-                  secureTextEntry={!showPassword}
+                <Input 
+                label="Password"
+                id="password"
+                secureTextEntry={!showPassword}
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
                   value={values.password}
                 />
+                
                 <Eye
                 size={15} style={styles.item}
                   name={showPassword ? 'eye-with-line' : 'eye'}
