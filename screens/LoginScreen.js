@@ -8,7 +8,7 @@ import {
   Dimensions,
   ActivityIndicator,
   TouchableNativeFeedback,
-  Pressable
+  Pressable,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -19,7 +19,8 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 
 import {loginUser} from '../store/actions/loginActions';
-import Input from '../components/ui/Input';
+import Input from '../components/login/Input';
+import Loginbtn from '../components/login/Loginbtn'; 
 import Error from '../components/ui/Error';
 import Colors from '../constants/Color';
 
@@ -76,9 +77,9 @@ const LoginScreen = props => {
                   value={values.username}
                 />
                 {!errors.username ? (
-                  <Ant name="check" size={15} style={styles.item} />
+                  <Ant name="check" size={20} style={styles.item} />
                 ) : (
-                  <NoCheck name="x-circle" size={15} style={styles.item} />
+                  <NoCheck name="x-circle" size={20} style={styles.item} />
                 )}
               </View>
 
@@ -97,7 +98,7 @@ const LoginScreen = props => {
                 />
 
                 <Eye
-                  size={15}
+                  size={20}
                   style={styles.item}
                   name={showPassword ? 'eye-with-line' : 'eye'}
                   onPress={() => setShowPassword(!showPassword)}
@@ -106,23 +107,11 @@ const LoginScreen = props => {
               {errors.password && touched.password && (
                 <Error error={errors.password} />
               )}
-
-              <View style={[styles.bottomContainer]}>
-                
-                  <Pressable
-                  onPress={handleSubmit}
-                  android_ripple={{
-                    color: Colors.lightMauve,borderless: true
-                  }}
-                  style={[
-                    styles.button,
-                    {backgroundColor: isValid ? Colors.mauve : '#CACFD2'},
-                  ]}
-                    disabled={!isValid && loading}>
-                    <Text style={styles.buttonText}> Login</Text>
-                  </Pressable>
-               
-              </View>
+              <Loginbtn 
+              disabled={!isValid && loading}
+              onPressbtn={handleSubmit}
+              style={{backgroundColor: isValid ? Colors.mauve : '#CACFD2'}}/>
+             
               {loading && <ActivityIndicator />}
               {status === 'failed' && <Error error={error} />}
             </View>
@@ -146,14 +135,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  loginTitle: {
-    paddingBottom: 30,
-    color: '#A629C2',
-    fontSize: 40,
-
-    textTransform: 'uppercase',
-    fontStyle: 'italic',
-  },
   buttomView: {
     flex: 1.5,
     backgroundColor: '#FFFFFF',
@@ -164,6 +145,7 @@ const styles = StyleSheet.create({
   welcometitle: {
     color: Colors.mauve,
     fontSize: 30,
+    fontWeight: 'bold',
   },
   formControl: {
     flex: 1,
@@ -177,38 +159,6 @@ const styles = StyleSheet.create({
     marginRight: 20,
     alignSelf: 'flex-end',
     color: Colors.mauve,
-  },
-  loginBtn: {
-    alignSelf: 'center',
-    backgroundColor: '#4632A1',
-    width: Dimensions.get('window').width / 2,
-    justifyContent: 'center',
-  },
-  button: {
-    // shadowOffset: {width: 1, height: 10},
-    // shadowOpacity: 0.4,
-    // shadowRadius: 3,
-    // elevation: 15,
-    height: 55,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 35,
-    marginHorizontal: 20,
-    marginVertical: 10,
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
-
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#FFFFFF',
-    letterSpacing: 0.5,
-  },
-  bottomContainer: {
-    borderRadius: 35,
-    justifyContent: 'center',
-    padding: 20,
   },
 });
 

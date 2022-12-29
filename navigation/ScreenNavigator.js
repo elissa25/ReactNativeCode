@@ -5,7 +5,7 @@ import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import {screenOptions as loginOptions} from '../screens/LoginScreen';
 import {screenOptions as dashboardOptions} from '../screens/DashboardScreen';
-import {Button, TouchableOpacity, Text} from 'react-native';
+import {Button, Pressable, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginActions} from '../store/slices/login-slice';
 import {articlesActions} from '../store/slices/articles-slice';
@@ -38,17 +38,13 @@ export const DashboardNavigator = props => {
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'italic',
+            fontSize:30,
           },
           headerStyle: {backgroundColor: Colors.mauve, color: 'white'},
           headerRight: () => (
-            <TouchableOpacity
+            <Pressable
               style={{
                 backgroundColor: Colors.lightMauve,
-                shadowOffset: {width: 1, height: 10},
-                shadowOpacity: 0.4,
-                shadowRadius: 3,
-                // shadowColor:'#00acee',
-                elevation: 5,
                 height: 40,
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -58,6 +54,10 @@ export const DashboardNavigator = props => {
                 borderWidth: 1,
                 borderColor: Colors.lightMauve,
                 width: 80,
+              }}
+              android_ripple={{
+                color: Colors.lightMauve,
+                borderless: true,
               }}
               onPress={() => {
                 dispatch(loginActions.Logout());
@@ -72,7 +72,7 @@ export const DashboardNavigator = props => {
                 }}>
                 Logout
               </Text>
-            </TouchableOpacity>
+            </Pressable>
          
           ),
         }}

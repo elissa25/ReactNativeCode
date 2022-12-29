@@ -15,7 +15,7 @@ function Article(props) {
         style={styles.container}
         onPress={() => Linking.openURL(`${props.url}`)}
         android_ripple={{
-          color: Colors.lightMauve,borderless: true
+          color: Colors.lightMauve,
         }}>
         <View style={{padding: 20, borderRadius: 40}}>
           <Text style={styles.title}>{props.title}</Text>

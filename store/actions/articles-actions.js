@@ -1,12 +1,12 @@
 import { articlesActions } from "../slices/articles-slice";
-
+import config from '../../config';
 export const getAllArticles = (page) => {
   return async (dispatch, getState) => {
     const accessToken = getState().login.token;
     try {
       dispatch(articlesActions.articlesRequest());
       const response = await fetch(
-        'http://34.245.213.76:3000/articles?page='+page ,
+        `${config.ARTICLE_URL}?page=`+page,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

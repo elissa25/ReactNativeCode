@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'white',
-    paddingHorizontal: 2,
+    paddingHorizontal: 10,
     paddingVertical: 5,
     borderBottomColor: '#ccc',
     borderBottomWidth: 1,
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize:20
   },
 });
 export default SearchInput;

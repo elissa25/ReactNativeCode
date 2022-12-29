@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginVertical: 2,
     marginLeft: 15,
     fontWeight: 'bold',
+    fontSize:18
   },
   input: {
     paddingHorizontal: 2,
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
     width: '90%',
     marginLeft: 15,
     alignSelf: 'flex-start',
+    //fontSize:15
   },
 });
 export default Input;
