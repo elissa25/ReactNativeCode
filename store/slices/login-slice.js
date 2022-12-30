@@ -1,7 +1,4 @@
-
 import { createSlice } from "@reduxjs/toolkit";
-
-
 
 const loginSlice = createSlice({
   name: "login",
@@ -16,11 +13,14 @@ const loginSlice = createSlice({
   reducers: {
     loginRequest(state) {
       state.loading = true;
+      console.log(state.loading );
     },
     successLogin(state, action) { 
       state.status = "success";
       state.loading = false;
      state.token = action.payload.accessToken;
+     
+     console.log(state.loading );
     },
     failedLogin(state, action) {
       state.status = "failed";
@@ -30,7 +30,6 @@ const loginSlice = createSlice({
     },
     Logout(state, action) {
       state.token = "";
-      state.loading = false;
       state.status = "1";
       
     },

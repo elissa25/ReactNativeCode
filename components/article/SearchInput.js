@@ -9,6 +9,7 @@ function SearchInput(props) {
         id="search"
         style={styles.input}
         onChangeText={props.onChangeText}
+        value={props.value}
       />
     </View>
   );

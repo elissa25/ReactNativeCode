@@ -8,7 +8,8 @@ function Input(props) {
       <TextInput {...props} style={styles.input} required />
     </View>
   );
-}
+};
+
 const styles = StyleSheet.create({
   buttomView: {
     flex: 1,
@@ -31,7 +32,6 @@ const styles = StyleSheet.create({
     width: '90%',
     marginLeft: 15,
     alignSelf: 'flex-start',
-    //fontSize:15
   },
 });
 export default Input;

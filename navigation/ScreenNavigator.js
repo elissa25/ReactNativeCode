@@ -1,12 +1,11 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { TouchableNativeFeedback, Text,View} from 'react-native';
+import {useDispatch} from 'react-redux';
 
 import LoginScreen from '../screens/LoginScreen';
 import DashboardScreen from '../screens/DashboardScreen';
 import {screenOptions as loginOptions} from '../screens/LoginScreen';
-import {screenOptions as dashboardOptions} from '../screens/DashboardScreen';
-import {Button, Pressable, Text} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
 import {loginActions} from '../store/slices/login-slice';
 import {articlesActions} from '../store/slices/articles-slice';
 import Colors from '../constants/Color';
@@ -42,8 +41,14 @@ export const DashboardNavigator = props => {
           },
           headerStyle: {backgroundColor: Colors.mauve, color: 'white'},
           headerRight: () => (
-            <Pressable
-              style={{
+            <TouchableNativeFeedback
+             
+              background={TouchableNativeFeedback.Ripple()}
+              onPress={() => {
+                dispatch(loginActions.Logout());
+                dispatch(articlesActions.Reset());
+              }}>
+                <View  style={{
                 backgroundColor: Colors.lightMauve,
                 height: 40,
                 alignItems: 'center',
@@ -54,14 +59,6 @@ export const DashboardNavigator = props => {
                 borderWidth: 1,
                 borderColor: Colors.lightMauve,
                 width: 80,
-              }}
-              android_ripple={{
-                color: Colors.lightMauve,
-                borderless: true,
-              }}
-              onPress={() => {
-                dispatch(loginActions.Logout());
-                dispatch(articlesActions.Reset());
               }}>
               <Text
                 style={{
@@ -72,7 +69,8 @@ export const DashboardNavigator = props => {
                 }}>
                 Logout
               </Text>
-            </Pressable>
+              </View>
+            </TouchableNativeFeedback>
          
           ),
         }}

@@ -3,21 +3,21 @@ import {
   View,
   StyleSheet,
   Text,
-  Pressable,
+  TouchableNativeFeedback,
   SafeAreaView,
   Linking,
 } from 'react-native';
+
 import Colors from '../../constants/Color';
+
 function Article(props) {
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Pressable
+      <TouchableNativeFeedback
+       background={TouchableNativeFeedback.Ripple()}
         style={styles.container}
-        onPress={() => Linking.openURL(`${props.url}`)}
-        android_ripple={{
-          color: Colors.lightMauve,
-        }}>
-        <View style={{padding: 20, borderRadius: 40}}>
+        onPress={() => Linking.openURL(`${props.url}`)}>
+        <View style={[styles.container,{padding: 20, borderRadius: 40}]}>
           <Text style={styles.title}>{props.title}</Text>
           <Text style={styles.description} numberOfLines={3}>
             {props.description}
@@ -29,25 +29,11 @@ function Article(props) {
             </Text>
           </View>
         </View>
-      </Pressable>
+      </TouchableNativeFeedback>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
-  listItem: {
-    backgroundColor: '#121212',
-    padding: 25,
-    marginTop: 20,
-    borderRadius: 10,
-  },
-  listText: {
-    fontSize: 16,
-    color: '#FFF',
-  },
-  loaderStyle: {
-    marginVertical: 16,
-    alignItems: 'center',
-  },
   container: {
     width: '90%',
     alignSelf: 'center',
@@ -55,12 +41,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     backgroundColor: '#fff',
     marginTop: 20,
-  },
-  image: {
-    height: 200,
-    width: '100%',
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
   },
   title: {
     marginTop: 10,
@@ -78,55 +58,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 10,
   },
-  heading: {},
-  author: {
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
-  date: {
-    fontWeight: 'bold',
-    color: '#e63946',
-    fontSize: 15,
-  },
   source: {
     color: Colors.darkMauve,
   },
-  formControl: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginTop: 40,
-    width: '100%',
-  },
-  viewSearch: {
-    margin: 10,
-  },
-  input: {
-    backgroundColor: 'white',
-    paddingHorizontal: 2,
-    paddingVertical: 5,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    borderRadius: 10,
-    color: '#000',
-    borderWidth: 1,
-    width: '75%',
-    marginLeft: 15,
-    alignSelf: 'flex-start',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  item: {
-    marginRight: 20,
-    alignSelf: 'flex-end',
-  },
-  error: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'red',
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
+
 });
 export default Article;

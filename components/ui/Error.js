@@ -7,7 +7,8 @@ function Error(props) {
       <Text style={styles.errors}>{props.error}</Text>
     </View>
   );
-}
+};
+
 const styles = StyleSheet.create({
   errorContainer: {
     flex: 1,
@@ -23,4 +24,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
 export default Error;

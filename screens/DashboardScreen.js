@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  StyleSheet,
   FlatList,
   ActivityIndicator,
   SafeAreaView,
@@ -31,7 +30,7 @@ const DashboardScreen = props => {
   const articlesToDispaly = searchField ? searchedArticles : articles;
   useEffect(() => {
     dispatch(getAllArticles(page));
-  }, [dispatch, page]);
+  }, [page]);
 
 
   const renderItem = ({item}) => {
@@ -62,6 +61,7 @@ const DashboardScreen = props => {
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1}}>
         <SearchInput onChangeText={onChangeText}
+        value={searchField}
             />
         
         {error && articleStatus === 'failed' && <Error error={error}/> }
@@ -87,40 +87,5 @@ const DashboardScreen = props => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  listItem: {
-    backgroundColor: '#121212',
-    padding: 25,
-    marginTop: 20,
-    borderRadius: 10,
-  },
-  listText: {
-    fontSize: 16,
-    color: '#FFF',
-  },
-  loaderStyle: {
-    marginVertical: 16,
-    alignItems: 'center',
-  },
-  container: {
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 40,
-    elevation: 5,
-    backgroundColor: '#fff',
-    marginTop: 20,
-    
-  },
-  formControl: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginTop: 40,
-    width: '100%',
-  },
-
-});
 
 export default DashboardScreen;

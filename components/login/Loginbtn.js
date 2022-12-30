@@ -1,24 +1,25 @@
 import React from 'react';
-import {View, StyleSheet, Text, Pressable} from 'react-native';
+import {View, StyleSheet, Text, TouchableNativeFeedback} from 'react-native';
+
 import Colors from '../../constants/Color';
+
 function Loginbtn(props) {
   return (
     <View style={[styles.bottomContainer]}>
-      <Pressable
+      <TouchableNativeFeedback
+        {...props}
+        disabled={props.disabled}
         onPress={props.onPressbtn}
-        android_ripple={{
-          color: Colors.lightMauve,
-          borderless: true,
-        }}
-        style={[
-          styles.button,
-          props.style
-        ]}>
-        <Text style={styles.buttonText}> Login</Text>
-      </Pressable>
+        background={TouchableNativeFeedback.Ripple()}
+        >
+        <View style={[styles.button, props.style]} testID={props.testID}   >
+          <Text  style={styles.buttonText}> {props.text}</Text>
+        </View>
+      </TouchableNativeFeedback>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   button: {
     height: 55,
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.mauve,
   },
   buttonText: {
+    borderRadius: 35,
     fontSize: 20,
     fontWeight: '600',
     color: '#FFFFFF',
@@ -43,4 +45,5 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 });
+
 export default Loginbtn;

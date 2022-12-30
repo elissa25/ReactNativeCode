@@ -7,8 +7,6 @@ import {
   ImageBackground,
   Dimensions,
   ActivityIndicator,
-  TouchableNativeFeedback,
-  Pressable,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -45,9 +43,9 @@ const LoginScreen = props => {
       initialValues={{username: '', password: ''}}
       validateOnMount={true}
       validationSchema={loginValidationSchema}
-      onSubmit={values => {
+      onSubmit={(values,actions) => {
         submitHandler(values);
-        //actions.resetForm();
+        actions.resetForm();
       }}>
       {({
         handleChange,
@@ -71,10 +69,11 @@ const LoginScreen = props => {
               <View style={styles.formControl}>
                 <Input
                   label="Username"
-                  id="username"
+                  testID="username"
                   onChangeText={handleChange('username')}
                   onBlur={handleBlur('username')}
                   value={values.username}
+                  
                 />
                 {!errors.username ? (
                   <Ant name="check" size={20} style={styles.item} />
@@ -90,7 +89,7 @@ const LoginScreen = props => {
               <View style={styles.formControl}>
                 <Input
                   label="Password"
-                  id="password"
+                  testID="password"
                   secureTextEntry={!showPassword}
                   onChangeText={handleChange('password')}
                   onBlur={handleBlur('password')}
@@ -108,10 +107,13 @@ const LoginScreen = props => {
                 <Error error={errors.password} />
               )}
               <Loginbtn 
-              disabled={!isValid && loading}
+              disabled={loading || !values.password || !values.username}
               onPressbtn={handleSubmit}
-              style={{backgroundColor: isValid ? Colors.mauve : '#CACFD2'}}/>
-             
+              text="login"
+              testID="loginId"
+              style={{backgroundColor: (loading || !values.password || !values.username) ? '#CACFD2' :   Colors.mauve}}
+              />
+
               {loading && <ActivityIndicator />}
               {status === 'failed' && <Error error={error} />}
             </View>
@@ -129,11 +131,6 @@ const styles = StyleSheet.create({
   },
   background: {
     height: Dimensions.get('window').height / 3,
-  },
-  title: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   buttomView: {
     flex: 1.5,
@@ -165,4 +162,5 @@ const styles = StyleSheet.create({
 export const screenOptions = {
   headerShown: false,
 };
+
 export default LoginScreen;

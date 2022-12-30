@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+
 import { LoginNavigator ,DashboardNavigator } from './ScreenNavigator';
 
 
@@ -14,5 +15,6 @@ import { LoginNavigator ,DashboardNavigator } from './ScreenNavigator';
       </NavigationContainer>
         );
 };
+
 export default AppNavigator;
 
