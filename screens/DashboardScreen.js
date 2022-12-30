@@ -4,6 +4,7 @@ import {
   FlatList,
   ActivityIndicator,
   SafeAreaView,
+  StyleSheet
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -13,6 +14,7 @@ import {articlesActions} from '../store/slices/articles-slice';
 import Article from '../components/article/Article';
 import SearchInput from '../components/article/SearchInput';
 import Error from '../components/ui/Error';
+import Loading from '../components/ui/loading';
 
 const DashboardScreen = props => {
   const dispatch = useDispatch();
@@ -27,10 +29,11 @@ const DashboardScreen = props => {
     empty
   } = useSelector(state => state.articles);
 
+ 
   const articlesToDispaly = searchField ? searchedArticles : articles;
   useEffect(() => {
     dispatch(getAllArticles(page));
-  }, [page]);
+  }, [dispatch,page]);
 
 
   const renderItem = ({item}) => {
@@ -43,20 +46,13 @@ const DashboardScreen = props => {
       />
     );
   };
-  const renderLoader = () => {
-    return loading ? (
-      <View style={styles.loaderStyle}>
-        <ActivityIndicator size="large" color="#aaa" />
-      </View>
-    ) : null;
-  };
 
-  const loadMoreItem = () => {
-    setPage(page + 1);
-  };
+
   const onChangeText=(value) =>{
     dispatch(articlesActions.searchArticle(value))
   }
+
+  
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1}}>
@@ -79,13 +75,20 @@ const DashboardScreen = props => {
           renderItem={renderItem}
           keyExtractor={(item, index) => index}
           onEndReached={ (empty.length===0 || searchField) ? null :()=>{ setPage(page + 1);} }
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={0}       
           onRefresh={error && (() => dispatch(getAllArticles(page)))}
           refreshing={loading}
         />
+        {loading && <Loading />}
       </View>
     </SafeAreaView>
   );
 };
+const styles = StyleSheet.create({
 
+  loaderStyle: {
+    marginVertical: 16,
+    alignItems: "center",
+  },
+});
 export default DashboardScreen;

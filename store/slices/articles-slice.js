@@ -27,7 +27,6 @@ const articleSlice = createSlice({
       state.loading = false;
       state.hasMore = false;
       state.error = action.payload;
-      console.log("failed");
     },
     searchArticle(state, action) {
       state.searchField = action.payload;

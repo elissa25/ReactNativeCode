@@ -1,5 +1,6 @@
 import { loginActions } from "../slices/login-slice";
 import config from '../../config';
+
 export const loginUser = user => {
   return async dispatch => {
     try {

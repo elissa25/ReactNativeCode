@@ -1,5 +1,6 @@
 import { articlesActions } from "../slices/articles-slice";
 import config from '../../config';
+
 export const getAllArticles = (page) => {
   return async (dispatch, getState) => {
     const accessToken = getState().login.token;
@@ -17,7 +18,6 @@ export const getAllArticles = (page) => {
         throw new Error('Failed to fetch !');
       }
       const data = await response.json();
-      console.log(page);
       const articles = data.response.docs;
      
       dispatch(articlesActions.successArticles(articles));

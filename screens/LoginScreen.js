@@ -20,6 +20,7 @@ import {loginUser} from '../store/actions/loginActions';
 import Input from '../components/login/Input';
 import Loginbtn from '../components/login/Loginbtn'; 
 import Error from '../components/ui/Error';
+import Loading from '../components/ui/loading';
 import Colors from '../constants/Color';
 
 const loginValidationSchema = yup.object({
@@ -114,7 +115,7 @@ const LoginScreen = props => {
               style={{backgroundColor: (loading || !values.password || !values.username) ? '#CACFD2' :   Colors.mauve}}
               />
 
-              {loading && <ActivityIndicator />}
+              {loading && <Loading testID="loadId"/>}
               {status === 'failed' && <Error error={error} />}
             </View>
           </View>

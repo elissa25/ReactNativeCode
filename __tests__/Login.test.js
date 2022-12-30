@@ -1,9 +1,11 @@
 import React from 'react';
-import LoginScreen from '../screens/LoginScreen';
-import store from '../store/index';
 import {act, fireEvent, render, waitFor} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
+
+import LoginScreen from '../screens/LoginScreen';
+import store from '../store/index';
 import config from '../config';
+
 global.fetch = jest.fn((username, password) =>
   fetch(config.API_URL_POST, {
     method: 'POST',
@@ -82,34 +84,26 @@ describe('loginTest', () => {
     await fireEvent.changeText(username, '');
     await fireEvent.changeText(password, '');
     await fireEvent.press(loginbtn);
-    //console.log(loginbtn.props,'aaaaaaaaaaaaaaaaaa');
     expect(loginbtn.props.accessibilityState).toStrictEqual({disabled: true});
   });
 
-  test('disable button (loading)', async () => {
-    const disableloading = render(
+  test('Button disable when press', async () => {
+    const disablebtn = render(
       <Provider store={store}>
         <LoginScreen />
       </Provider>,
     );
-    const username = disableloading.getByTestId('username');
-    const password = disableloading.getByTestId('password');
-    const loginbtn = disableloading.getByTestId('loginId');
-        //const loginbt = disableloading.getByText('login');
-      fireEvent.changeText(username, 'jolieee');
-      fireEvent.changeText(password, 'ffffguikhigf');
-      //fireEvent.press(loginbtn);
-      await act(async () => {
-        await fireEvent.press(loginbtn);
-        console.log(store.getState().login.loading,"MY LOADING")
-      });
-   console.log(loginbtn.props,'aaaaaaaaaaaaaaaaaa');
-   waitFor(() => {
+    const username = disablebtn.getByTestId('username');
+    const password = disablebtn.getByTestId('password');
+    const loginbtn = disablebtn.getByTestId("loginId");
+    fireEvent.changeText(username, 'hello');
+    fireEvent.changeText(password, '123hfrfjgkmjvc');
     expect(loginbtn.props.accessibilityState).toStrictEqual({
-      disabled: true
+      disabled: false
     });
   });
-    });
+
+  
   });
 
 
